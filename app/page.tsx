@@ -16,7 +16,6 @@ estSolvable: boolean;
 
 const revenuExige = loyer * ratio;
 
-// Fonction simulée d'analyse par l'IA (Vision / Gemini)
 const handleAnalyse = () => {
 if (!fileName) return;
 
@@ -25,67 +24,64 @@ setAnalysisResult(null);
 
 setTimeout(() => {
 setIsAnalyzing(false);
-// Exemple de résultat extrait de la fiche de paie
 setAnalysisResult({
 revenuBrut: 5200,
 nomCandidat: 'Mamadou Sow',
 estSolvable: 5200 >= revenuExige,
 });
-}, 2000); // Fait semblant de réfléchir pendant 2 secondes comme une vraie IA
+}, 2000);
 };
 
 return (
-<main className="flex min-h-screen flex-col items-center justify-between p-8 md:p-24 bg-slate-950 relative before:content-[''] before:absolute before:inset-0 before:opacity-10 before:z-0 before:bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')]">
+<main className="min-h-screen bg-slate-950 text-slate-100 flex flex-col items-center p-6 md:p-12">
 
-{/* Header / Titre de l'application */}
-<div className="z-10 w-full max-w-5xl flex flex-col md:flex-row items-start md:items-center justify-between bg-white/95 backdrop-blur-md p-6 md:p-8 rounded-3xl shadow-xl border border-slate-100 mb-8">
-<div className="flex items-center gap-3">
-<div className="p-3 bg-blue-50 rounded-2xl border border-blue-100 shadow-inner">
-<Image src="/logo.png" alt="ProprietyAI" width={32} height={32} />
+{/* Header */}
+<div className="w-full max-w-5xl bg-slate-900/80 border border-slate-800 p-6 rounded-2xl shadow-xl flex flex-col md:flex-row items-center justify-between mb-8 backdrop-blur-md">
+<div className="flex items-center gap-4 mb-4 md:mb-0">
+<div className="p-3 bg-blue-600/20 border border-blue-500/30 rounded-xl">
+<span className="text-2xl">🏢</span>
 </div>
 <div>
-<h1 className="text-3xl font-extrabold text-slate-950 tracking-tight">ProprietyAI</h1>
-<p className="text-xs text-slate-500">Plateforme intelligente d'aide à la décision locative</p>
+<h1 className="text-2xl font-bold tracking-tight text-white">ProprietyAI</h1>
+<p className="text-xs text-slate-400">Plateforme intelligente d'aide à la décision locative</p>
 </div>
 </div>
-<div className="mt-4 md:mt-0">
-<span className="bg-blue-100 text-blue-800 text-xs font-semibold px-3 py-1.5 rounded-full shadow-sm">
+<span className="bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold px-3 py-1.5 rounded-full">
 B2B Québec
 </span>
 </div>
-</div>
 
-{/* Contenu Principal (Grille de l'application) */}
-<div className="z-10 w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 gap-8">
+{/* Grille Principale */}
+<div className="w-full max-w-5xl grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
 
-{/* --- Bloc 1 : Paramètres du Bail & Dossier Candidat --- */}
-<div className="flex flex-col gap-8">
+{/* Colonne Gauche : Paramètres & Dossier */}
+<div className="flex flex-col gap-6">
 
 {/* Paramètres du Bail */}
-<div className="p-8 rounded-3xl border border-slate-200/80 bg-white/95 backdrop-blur-md shadow-lg ring-1 ring-inset ring-black/5">
-<div className="flex items-center gap-2 mb-6">
-<span className="text-xl">📊</span>
-<h2 className="text-xl font-bold text-slate-900">Paramètres du Bail</h2>
+<div className="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl shadow-xl backdrop-blur-md">
+<div className="flex items-center gap-2 mb-4">
+<span className="text-lg">📊</span>
+<h2 className="text-lg font-semibold text-white">Paramètres du Bail</h2>
 </div>
 
-<div className="mb-6">
-<label className="block text-sm font-medium text-slate-700 mb-2">
+<div className="mb-4">
+<label className="block text-xs font-medium text-slate-400 mb-1.5">
 Montant du loyer mensuel ($)
 </label>
 <input
 type="number"
 value={loyer}
 onChange={(e) => setLoyer(Number(e.target.value))}
-className="w-full px-4 py-3 rounded-xl border border-slate-200 text-slate-900 font-semibold focus:ring-2 focus:ring-blue-500 focus:outline-none transition"
+className="w-full bg-slate-950 border border-slate-800 rounded-xl px-4 py-2.5 text-white font-medium focus:outline-none focus:border-blue-500 transition"
 />
 </div>
 
-<div className="mb-6">
-<div className="flex justify-between items-center mb-2">
-<label className="text-sm font-medium text-slate-700">
+<div className="mb-4">
+<div className="flex justify-between items-center mb-1.5">
+<label className="text-xs font-medium text-slate-400">
 Ratio de solvabilité minimum
 </label>
-<span className="text-sm font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-lg">
+<span className="text-xs font-bold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-md">
 {ratio}x le loyer
 </span>
 </div>
@@ -96,130 +92,99 @@ max="4"
 step="0.5"
 value={ratio}
 onChange={(e) => setRatio(Number(e.target.value))}
-className="w-full accent-blue-600 cursor-pointer"
+className="w-full accent-blue-500 cursor-pointer"
 />
 </div>
 
-<div className="p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
-<span className="text-sm font-medium text-slate-600">Revenu brut exigé :</span>
-<span className="text-lg font-extrabold text-blue-600">
+<div className="bg-slate-950 border border-slate-800 p-3.5 rounded-xl flex items-center justify-between">
+<span className="text-xs text-slate-400 font-medium">Revenu brut exigé :</span>
+<span className="text-base font-bold text-blue-400">
 {revenuExige.toLocaleString('fr-CA')} $ / mois
 </span>
 </div>
 </div>
 
 {/* Dossier Candidat */}
-<div className="p-8 rounded-3xl border border-slate-200/80 bg-white/95 backdrop-blur-md shadow-lg ring-1 ring-inset ring-black/5">
-<div className="flex items-center gap-2 mb-6">
-<span className="text-xl">📁</span>
-<h2 className="text-xl font-bold text-slate-900">Dossier Candidat</h2>
+<div className="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl shadow-xl backdrop-blur-md">
+<div className="flex items-center gap-2 mb-4">
+<span className="text-lg">📁</span>
+<h2 className="text-lg font-semibold text-white">Dossier Candidat</h2>
 </div>
 
-<div className="border-2 border-dashed border-slate-300 hover:border-blue-500 transition rounded-2xl p-6 text-center cursor-pointer bg-slate-50/50 flex flex-col items-center justify-center gap-2 mb-6">
-<div className="p-3 bg-blue-50 text-blue-600 rounded-full shadow-inner">
-📄
-</div>
-<div>
-<p className="text-sm font-semibold text-slate-800">{fileName || "Glissez la fiche de paie ici"}</p>
-<p className="text-xs text-slate-400">PDF, PNG ou JPG supportés</p>
-</div>
+<div className="border border-dashed border-slate-700 hover:border-blue-500 transition rounded-xl p-5 text-center bg-slate-950/50 mb-4 cursor-pointer">
+<p className="text-sm font-medium text-slate-200">{fileName || "Glissez la fiche de paie ici"}</p>
+<p className="text-xs text-slate-500 mt-1">PDF, PNG ou JPG pris en charge</p>
 </div>
 
 <button
 onClick={handleAnalyse}
 disabled={isAnalyzing}
-className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-2xl shadow-md transition flex items-center justify-center gap-2 disabled:opacity-50"
+className="w-full py-3 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl transition shadow-lg shadow-blue-600/20 disabled:opacity-50 flex items-center justify-center gap-2 text-sm"
 >
-{isAnalyzing ? (
-<>
-<svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-<circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-<path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-</svg>
-<span>Analyse en cours...</span>
-</>
-) : (
-<span>Lancer l'analyse experte ➔</span>
-)}
+{isAnalyzing ? "Analyse en cours..." : "Lancer l'analyse experte ➔"}
 </button>
 </div>
 
 </div>
 
-{/* --- Bloc 2 : Rapport d'Évaluation Financière --- */}
-<div className="p-8 rounded-3xl border border-slate-200/80 bg-white/95 backdrop-blur-md shadow-lg ring-1 ring-inset ring-black/5 flex flex-col justify-between">
+{/* Colonne Droite : Rapport d'Évaluation Financière */}
+<div className="bg-slate-900/80 border border-slate-800 p-6 rounded-2xl shadow-xl backdrop-blur-md flex flex-col justify-between min-h-[420px]">
 <div>
 <div className="flex items-center justify-between mb-6">
-<h2 className="text-xl font-bold text-slate-900">Rapport d'Évaluation Financière</h2>
-<span className="text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1 rounded-full border border-blue-100">
-Propulsé par Gemini AI
+<h2 className="text-lg font-semibold text-white">Rapport Financier</h2>
+<span className="text-[11px] font-medium text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2.5 py-1 rounded-full">
+Gemini AI
 </span>
 </div>
 
 {!analysisResult && !isAnalyzing && (
-<div className="border border-slate-200 rounded-2xl p-12 text-center flex flex-col items-center justify-center gap-3 bg-slate-50/50 mt-12">
-<div className="p-4 bg-slate-100 text-slate-400 rounded-full">
-📄
-</div>
-<div>
-<p className="text-sm font-semibold text-slate-700">En attente de document</p>
-<p className="text-xs text-slate-400 mt-1">Téléversez un fichier et lancez l'analyse pour afficher les données financières.</p>
-</div>
+<div className="border border-slate-800 bg-slate-950/50 rounded-xl p-8 text-center flex flex-col items-center justify-center gap-2 my-12">
+<span className="text-2xl">📄</span>
+<p className="text-sm font-medium text-slate-300">En attente de document</p>
+<p className="text-xs text-slate-500">Téléversez un fichier et lancez l'analyse.</p>
 </div>
 )}
 
 {isAnalyzing && (
-<div className="border border-blue-100 rounded-2xl p-12 text-center flex flex-col items-center justify-center gap-3 bg-blue-50/20 mt-12">
-<div className="animate-pulse text-blue-600 text-3xl">✨</div>
-<p className="text-sm font-medium text-blue-900">Extraction automatique des données par vision intelligente...</p>
+<div className="border border-blue-500/20 bg-blue-500/5 rounded-xl p-8 text-center my-12">
+<p className="text-sm text-blue-400 font-medium animate-pulse">Extraction automatique en cours...</p>
 </div>
 )}
 
 {analysisResult && !isAnalyzing && (
-<div className="space-y-6 mt-4 animate-fadeIn">
-<div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-<p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Candidat identifié</p>
-<p className="text-lg font-bold text-slate-900 mt-1">{analysisResult.nomCandidat}</p>
+<div className="space-y-4">
+<div className="bg-slate-950 border border-slate-800 p-3.5 rounded-xl">
+<p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Candidat</p>
+<p className="text-base font-bold text-white mt-0.5">{analysisResult.nomCandidat}</p>
 </div>
 
-<div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
-<p className="text-xs text-slate-500 uppercase tracking-wider font-semibold">Revenu mensuel brut extrait</p>
-<p className="text-lg font-bold text-slate-900 mt-1">{analysisResult.revenuBrut.toLocaleString('fr-CA')} $ / mois</p>
+<div className="bg-slate-950 border border-slate-800 p-3.5 rounded-xl">
+<p className="text-[11px] text-slate-400 uppercase tracking-wider font-semibold">Revenu mensuel brut</p>
+<p className="text-base font-bold text-white mt-0.5">{analysisResult.revenuBrut.toLocaleString('fr-CA')} $ / mois</p>
 </div>
 
-<div className={`p-5 rounded-2xl border ${analysisResult.estSolvable ? 'bg-emerald-50 border-emerald-200 text-emerald-900' : 'bg-rose-50 border-rose-200 text-rose-900'}`}>
-<div className="flex items-center gap-3">
-<span className="text-2xl">{analysisResult.estSolvable ? '✅' : '❌'}</span>
-<div>
-<p className="font-bold text-base">
-{analysisResult.estSolvable ? 'Dossier Recommandé (Solvable)' : 'Dossier Non Conforme (Risque)'}
+<div className={`p-4 rounded-xl border ${analysisResult.estSolvable ? 'bg-emerald-500/10 border-emerald-500/30 text-emerald-300' : 'bg-rose-500/10 border-rose-500/30 text-rose-300'}`}>
+<p className="font-bold text-sm">
+{analysisResult.estSolvable ? '✅ Dossier Recommandé (Solvable)' : '❌ Dossier Non Conforme (Risque)'}
 </p>
-<p className="text-xs opacity-90 mt-0.5">
+<p className="text-xs opacity-90 mt-1">
 {analysisResult.estSolvable
 ? `Le revenu dépasse le seuil exigé de ${revenuExige.toLocaleString('fr-CA')} $.`
 : `Le revenu est inférieur au seuil exigé de ${revenuExige.toLocaleString('fr-CA')} $.`}
 </p>
 </div>
 </div>
-</div>
-</div>
 )}
 </div>
 
-<div className="mt-8 pt-4 border-t border-slate-100 text-center">
-<p className="text-xs text-slate-400">
-Outil d'analyse automatisée par vision intelligente.
+<div className="mt-6 pt-4 border-t border-slate-800/80 text-center">
+<p className="text-[11px] text-slate-500">
+ProprietyAI — Propulsé par Gemini AI
 </p>
 </div>
 </div>
 
 </div>
-
-{/* Footer */}
-<div className="z-10 text-slate-400 mt-12 text-xs font-medium">
-ProprietyAI — Propulsé par Gemini AI
-</div>
-
 </main>
 );
 }
