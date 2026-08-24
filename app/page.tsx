@@ -5,6 +5,7 @@ import { useState } from 'react';
 export default function Home() {
 const [loyer, setLoyer] = useState<number>(1500);
 const [ratio, setRatio] = useState<number>(3);
+const [fileName, setFileName] = useState<string | null>('fiche_paie_test.pdf');
 const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
 const [analysisResult, setAnalysisResult] = useState<{
 revenuBrut: number;
@@ -13,6 +14,13 @@ estSolvable: boolean;
 } | null>(null);
 
 const revenuExige = loyer * ratio;
+
+const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+if (e.target.files && e.target.files[0]) {
+setFileName(e.target.files[0].name);
+setAnalysisResult(null);
+}
+};
 
 const handleAnalyse = () => {
 setIsAnalyzing(true);
@@ -31,7 +39,6 @@ estSolvable: 5200 >= revenuExige,
 return (
 <main className="min-h-screen bg-slate-950 text-slate-100 p-6 flex flex-col items-center justify-center">
 
-{/* Conteneur Global */}
 <div className="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
 
 {/* En-tête */}
@@ -50,7 +57,7 @@ B2B Québec
 {/* Grille 2 Colonnes */}
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-{/* Colonne de Gauche : Contrôles */}
+{/* Colonne Gauche */}
 <div className="flex flex-col gap-6">
 
 {/* Paramètres du Bail */}
@@ -91,21 +98,27 @@ className="w-full accent-blue-500 cursor-pointer"
 </div>
 </div>
 
-{/* Dossier Candidat */}
+{/* Dossier Candidat avec vrai input fichier */}
 <div className="bg-slate-950 border border-slate-800/80 p-5 rounded-2xl">
 <h2 className="text-sm font-semibold text-slate-300 mb-3 flex items-center gap-2">
 <span>📁</span> Dossier Candidat
 </h2>
 
-<div className="border border-dashed border-slate-700 rounded-xl p-4 text-center bg-slate-900/50 mb-4">
-<p className="text-xs font-medium text-slate-300">fiche_paie_test.pdf</p>
-<p className="text-[10px] text-slate-500 mt-0.5">Prêt pour l'analyse</p>
-</div>
+<label className="border border-dashed border-slate-700 hover:border-blue-500 transition rounded-xl p-4 text-center bg-slate-900/50 mb-4 block cursor-pointer">
+<p className="text-xs font-medium text-slate-200">{fileName || "Cliquez pour choisir un fichier"}</p>
+<p className="text-[10px] text-slate-500 mt-0.5">PDF, PNG ou JPG</p>
+<input
+type="file"
+accept=".pdf,image/*"
+onChange={handleFileChange}
+className="hidden"
+/>
+</label>
 
 <button
 onClick={handleAnalyse}
 disabled={isAnalyzing}
-className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-xs transition shadow-lg shadow-blue-600/20 disabled:opacity-50"
+className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-xl text-xs transition shadow-lg shadow-blue-600/20 disabled:opacity-50 cursor-pointer"
 >
 {isAnalyzing ? "Analyse par Gemini..." : "Lancer l'analyse experte ➔"}
 </button>
@@ -113,7 +126,7 @@ className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium ro
 
 </div>
 
-{/* Colonne de Droite : Rapport d'Évaluation */}
+{/* Colonne Droite */}
 <div className="bg-slate-950 border border-slate-800/80 p-5 rounded-2xl flex flex-col justify-between">
 <div>
 <div className="flex items-center justify-between mb-4">
@@ -125,7 +138,7 @@ Gemini AI
 
 {!analysisResult && !isAnalyzing && (
 <div className="border border-slate-800 bg-slate-900/30 rounded-xl p-8 text-center my-6">
-<p className="text-xs text-slate-400">Cliquez sur "Lancer l'analyse experte" pour évaluer la fiche de paie.</p>
+<p className="text-xs text-slate-400">Cliquez sur "Lancer l'analyse experte" pour évaluer le dossier.</p>
 </div>
 )}
 
