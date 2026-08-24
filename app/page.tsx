@@ -5,7 +5,7 @@ import { useState } from 'react';
 export default function Home() {
 const [loyer, setLoyer] = useState<number>(1500);
 const [ratio, setRatio] = useState<number>(3);
-const [fileName, setFileName] = useState<string>('fiche_paie_test.pdf');
+const [fileName] = useState<string>('fiche_paie_test.pdf');
 const [isAnalyzing, setIsAnalyzing] = useState<boolean>(false);
 const [analysisResult, setAnalysisResult] = useState<{
 revenuBrut: number;
@@ -30,25 +30,29 @@ estSolvable: 5200 >= revenuExige,
 };
 
 return (
-<main className="min-h-screen bg-slate-950 text-slate-100 p-8 flex flex-col items-center justify-center">
-<div className="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl">
+<main className="min-h-screen bg-slate-950 text-slate-100 p-6 md:p-10 flex flex-col items-center justify-center">
+<div className="w-full max-w-4xl bg-slate-900 border border-slate-800 rounded-3xl p-6 md:p-8 shadow-2xl">
 
-{/* Header */}
-<div className="flex items-center justify-between border-b border-slate-800 pb-6 mb-6">
+{/* Header structuré proprement avec flexbox */}
+<div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-800 pb-6 mb-6 gap-4">
 <div>
-<h1 className="text-2xl font-bold text-white">🏢 ProprietyAI</h1>
+<h1 className="text-2xl font-bold text-white flex items-center gap-2">
+<span>🏢</span> ProprietyAI
+</h1>
 <p className="text-xs text-slate-400 mt-1">Plateforme intelligente d'aide à la décision locative</p>
 </div>
-<span className="bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold px-3 py-1.5 rounded-full">
+<div>
+<span className="inline-block bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-semibold px-3 py-1.5 rounded-full">
 B2B Québec
 </span>
 </div>
+</div>
 
-{/* Grille */}
+{/* Grille principale */}
 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-{/* Colonne gauche */}
-<div className="space-y-6">
+{/* Colonne de gauche */}
+<div className="flex flex-col gap-6">
 <div className="bg-slate-950 border border-slate-800 p-5 rounded-2xl">
 <h2 className="text-sm font-semibold text-slate-300 mb-4">📊 Paramètres du Bail</h2>
 
@@ -99,10 +103,15 @@ className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-medium ro
 </div>
 </div>
 
-{/* Colonne droite */}
+{/* Colonne de droite */}
 <div className="bg-slate-950 border border-slate-800 p-5 rounded-2xl flex flex-col justify-between">
 <div>
-<h2 className="text-sm font-semibold text-slate-300 mb-4">Rapport Financier</h2>
+<div className="flex items-center justify-between mb-4">
+<h2 className="text-sm font-semibold text-slate-300">Rapport Financier</h2>
+<span className="text-[10px] bg-blue-500/10 border border-blue-500/20 text-blue-400 px-2 py-0.5 rounded-full">
+Gemini AI
+</span>
+</div>
 
 {!analysisResult && !isAnalyzing && (
 <div className="border border-slate-800 bg-slate-900/30 rounded-xl p-8 text-center my-6">
